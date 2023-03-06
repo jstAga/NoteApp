@@ -1,19 +1,20 @@
-package com.example.noteapp.domain.core.utils
+package com.example.noteapp.data.base
 
+import com.example.noteapp.domain.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import java.io.IOException
 
-class EmitData {
-    fun <T> emitData(data: T): Flow<Resource<T>> = flow {
+abstract class BaseRepository {
+
+     protected fun <T> doRequest(response: suspend () -> T): Flow<Resource<T>> = flow {
         emit(Resource.Loading())
         try {
-            emit(Resource.Success(data))
+            emit(Resource.Success(response()))
         } catch (ioException: IOException) {
             emit(Resource.Error(ioException.localizedMessage ?: "unknown exception"))
         }
-        return@flow
     }.flowOn(Dispatchers.IO)
 }

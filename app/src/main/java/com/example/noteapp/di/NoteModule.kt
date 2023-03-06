@@ -6,7 +6,6 @@ import com.example.noteapp.data.local.NoteDao
 import com.example.noteapp.data.local.NoteDatabase
 import com.example.noteapp.data.repository.NoteRepositoryImpl
 import com.example.noteapp.domain.repository.NoteRepository
-import com.example.noteapp.domain.core.utils.EmitData
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,9 +28,5 @@ object NoteModule {
 
     @Singleton
     @Provides
-    fun provideNoteRepository(noteDao: NoteDao, emitData: EmitData): NoteRepository = NoteRepositoryImpl(noteDao, emitData)
-
-    @Singleton
-    @Provides
-    fun provideEmitData() : EmitData = EmitData()
+    fun provideNoteRepository(noteDao: NoteDao): NoteRepository = NoteRepositoryImpl(noteDao)
 }

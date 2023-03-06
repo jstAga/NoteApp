@@ -1,17 +1,16 @@
-package com.example.noteapp.domain.core.ui
+package com.example.noteapp.presentation.ui.utils
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
+import com.example.noteapp.domain.core.ui.BaseViewModel
 
 abstract class BaseFragment<VBinding : ViewBinding, ViewModel : BaseViewModel> : Fragment() {
 
-    protected lateinit var viewModel: ViewModel
-    protected abstract fun getViewModelClass(): Class<ViewModel>
+    protected abstract val viewModel: ViewModel
 
     protected lateinit var binding: VBinding
     protected abstract fun getViewBinding(): VBinding
@@ -32,19 +31,21 @@ abstract class BaseFragment<VBinding : ViewBinding, ViewModel : BaseViewModel> :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        initObserver()
+        initRequests()
+        initSubscribers()
         initListener()
     }
 
     open fun initViews() {}
 
-    open fun initObserver() {}
+    open fun initRequests() {}
+
+    open fun initSubscribers(){}
 
     open fun initListener() {}
 
     private fun init() {
         binding = getViewBinding()
-        viewModel = ViewModelProvider(this)[getViewModelClass()]
     }
 }
 

@@ -2,7 +2,7 @@ package com.example.noteapp.domain.repository
 
 
 import com.example.noteapp.domain.model.Note
-import com.example.noteapp.domain.core.utils.Resource
+import com.example.noteapp.domain.utils.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface NoteRepository {
