@@ -20,7 +20,7 @@ object NoteModule {
     @Singleton
     @Provides
     fun provideNoteDatabase(@ApplicationContext context: Context) =
-        Room.databaseBuilder(context, NoteDatabase::class.java, "note_db").allowMainThreadQueries().build()
+        Room.databaseBuilder(context, NoteDatabase::class.java, "note_db").fallbackToDestructiveMigration().allowMainThreadQueries().build()
 
     @Singleton
     @Provides

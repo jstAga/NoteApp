@@ -6,5 +6,5 @@ import javax.inject.Inject
 
 class RemoveNoteUseCase @Inject constructor(private val noteRepository: NoteRepository) {
 
-    fun removeNote(note: Note) = noteRepository.removeNote(note)
+    operator fun invoke(note: Note) = noteRepository.removeNote(note)
 }

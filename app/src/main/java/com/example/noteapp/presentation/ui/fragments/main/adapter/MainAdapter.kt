@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.noteapp.databinding.ItemNoteBinding
 import com.example.noteapp.domain.model.Note
 
-class MainAdapter : Adapter<MainAdapter.MainViewHolder>() {
+class MainAdapter(private val onItemClick: (Note) -> Unit, private val onItemLongClick: (Note) -> Unit) : Adapter<MainAdapter.MainViewHolder>() {
 
     private val data = arrayListOf<Note>()
 
@@ -34,6 +34,20 @@ class MainAdapter : Adapter<MainAdapter.MainViewHolder>() {
     }
 
     inner class MainViewHolder(private val binding: ItemNoteBinding) : ViewHolder(binding.root) {
-        fun bind(model: Note) {}
+        fun bind(model: Note) {
+            with(binding){
+                tvTitle.text = model.title
+                tvDescription.text = model.description
+
+                itemView.setOnClickListener {
+                    onItemClick(model)
+                }
+
+                itemView.setOnLongClickListener {
+                    onItemLongClick(model)
+                    return@setOnLongClickListener true
+                }
+            }
+        }
     }
 }
